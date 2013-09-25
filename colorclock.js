@@ -10,7 +10,8 @@ window.cc = (function() {
 	};
 	var _step = function() {
 		var date = new Date();
-		if (date.toString !== lastTime) {
+		if (date.toString() !== lastTime) {
+			lastTime = date.toString();
 			var hours = date.getHours();
 			var minutes = date.getMinutes();
 			var seconds = date.getSeconds();
