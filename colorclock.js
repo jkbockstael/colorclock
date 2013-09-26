@@ -1,12 +1,19 @@
 // Color Clock JS : JavaScript partial reimplementation of http://thecolourclock.co.uk/ (by Jack Hughes)
 // 2012, Jean-Karim Bockstael <jkb@jkbockstael.be>
 window.cc = (function() {
+	var timer = undefined;
 	var dom = {};
+	var hexaMode = true;
 	var lastTime = "";
 	var _centerDisplay = function() {
 		dom.display.style.fontSize = Math.floor(window.innerHeight / 3.5) + "px";
 		dom.display.style.top = Math.floor((window.innerHeight - dom.display.offsetHeight) / 2) + "px";
 		dom.display.style.width = window.innerWidth;
+	};
+	var _toggleHexa = function() {
+		hexaMode = !hexaMode;
+		clearTimeout(timer);
+		_step();
 	};
 	var _step = function() {
 		var date = new Date();
@@ -36,12 +43,19 @@ window.cc = (function() {
 			dom.display.style.textShadow = "-1px -2px 2px rgb(" + shadowRed + "," + shadowGreen + "," + shadowBlue + ")";
 			dom.display.style.textHighlight = "1px 2px 2px rgb(" + highlightRed + "," + highlightGreen + "," + highlightBlue + ")";
 			// Display time
-			var time = "" + ((hours < 10) ? "0" + hours : hours);
-			time += ":" + ((minutes < 10) ? "0" + minutes : minutes);
-			time += ":" + ((seconds < 10) ? "0" + seconds : seconds);
+			if (hexaMode === true) {
+				var time = "" + ((hours < 16) ? "0" + hours.toString(16) : hours.toString(16));
+				time += ":" + ((minutes < 16) ? "0" + minutes.toString(16) : minutes.toString(16));
+				time += ":" + ((seconds < 16) ? "0" + seconds.toString(16) : seconds.toString(16));
+			}
+			else {
+				var time = "" + ((hours < 10) ? "0" + hours : hours);
+				time += ":" + ((minutes < 10) ? "0" + minutes : minutes);
+				time += ":" + ((seconds < 10) ? "0" + seconds : seconds);
+			}
 			dom.display.innerHTML = time;
 		}
-		setTimeout(_step, 200);
+		timer = setTimeout(_step, 200);
 	};
 	var _start = function() {
 		dom.body = document.getElementsByTagName("body")[0];
@@ -60,6 +74,7 @@ window.cc = (function() {
 		dom.body.style.height = "100%"
 		dom.body.style.margin = "0";
 		dom.display.innerHTML = "00:00:00";
+		dom.display.onclick = _toggleHexa;
 		dom.body.appendChild(dom.display);
 		window.onresize = _centerDisplay;
 		setTimeout(_centerDisplay, 0);
