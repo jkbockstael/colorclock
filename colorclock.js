@@ -1,5 +1,5 @@
 // Color Clock JS : JavaScript partial reimplementation of http://thecolourclock.co.uk/ (by Jack Hughes)
-// 2012, Jean-Karim Bockstael <jkb@jkbockstael.be>
+// 2012-2014, Jean-Karim Bockstael <jkb@jkbockstael.be>
 window.cc = (function cc() {
 	var _timer = undefined;
 	var _dom = {};
@@ -12,7 +12,7 @@ window.cc = (function cc() {
 		_dom.display.style.width = window.innerWidth;
 	}
 
-	function toggleHexa() {
+	function _toggleHexa() {
 		_hexaMode = !_hexaMode;
 		clearTimeout(_timer);
 		_step();
@@ -31,21 +31,21 @@ window.cc = (function cc() {
 			var minutesRatio = (minutes/59);
 			var secondsRatio = (seconds/59);
 
-			var bodyRed = Math.floor((hoursRatio - (hoursRatio * 10 / 100)) * 256);
-			var bodyGreen = Math.floor((minutesRatio - (minutesRatio * 10 / 100)) * 256);
-			var bodyBlue = Math.floor((secondsRatio - (secondsRatio * 10 / 100)) * 256);
-
-			var displayRed = Math.floor((hoursRatio - (hoursRatio * 20 / 100)) * 256);
-			var displayGreen = Math.floor((minutesRatio - (minutesRatio * 20 / 100)) * 256);
-			var displayBlue = Math.floor((secondsRatio - (secondsRatio * 20 / 100)) * 256);
-
-			var shadowRed = Math.floor((hoursRatio - (hoursRatio * 30 / 100)) * 256);
-			var shadowGreen = Math.floor((minutesRatio - (minutesRatio * 30 / 100)) * 256);
-			var shadowBlue = Math.floor((secondsRatio - (secondsRatio * 30 / 100)) * 256);
-
 			var highlightRed = Math.floor(hoursRatio * 256);
 			var highlightGreen = Math.floor(minutesRatio * 256);
 			var highlightBlue = Math.floor(secondsRatio * 256);
+
+			var bodyRed = Math.floor(highlightRed * 0.9);
+			var bodyGreen = Math.floor(highlightGreen * 0.9);
+			var bodyBlue = Math.floor(highlightBlue * 0.9);
+
+			var displayRed = Math.floor(highlightRed * 0.8);
+			var displayGreen = Math.floor(highlightGreen * 0.8);
+			var displayBlue = Math.floor(highlightBlue * 0.8);
+
+			var shadowRed = Math.floor(highlightRed * 0.7);
+			var shadowGreen = Math.floor(highlightGreen * 0.7);
+			var shadowBlue = Math.floor(highlightBlue * 0.7);
 
 			_dom.body.style.backgroundColor = "rgb(" + bodyRed + "," + bodyGreen + "," + bodyBlue + ")";
 			_dom.display.style.color = "rgb(" + displayRed + "," + displayGreen + "," + displayBlue + ")";
@@ -70,23 +70,9 @@ window.cc = (function cc() {
 
 	function _start() {
 		_dom.body = document.getElementsByTagName("body")[0];
-		_dom.display = document.createElement("div");
-		_dom.display.id = "display";
-		_dom.display.style.position = "relative";
-		_dom.display.style.fontFamily = "monospace";
-		_dom.display.style.textAlign = "center";
+		_dom.display = document.getElementById("display");
 		_dom.display.style.width = window.innerWidth;
-		_dom.display.style.margin = "0";
-		_dom.display.style.marginLeft = "auto";
-		_dom.display.style.marginRight = "auto";
-		_dom.display.style.color = "transparent";
-		_dom.body.style.position = "absolute";
-		_dom.body.style.width = "100%";
-		_dom.body.style.height = "100%"
-		_dom.body.style.margin = "0";
-		_dom.display.innerHTML = "00:00:00";
-		_dom.display.onclick = toggleHexa;
-		_dom.body.appendChild(_dom.display);
+		_dom.display.onclick = _toggleHexa;
 		window.onresize = _centerDisplay;
 		setTimeout(_centerDisplay, 0);
 		setTimeout(_step, 1);

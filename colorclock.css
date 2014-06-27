@@ -1,0 +1,19 @@
+/* Color Clock JS : JavaScript partial reimplementation of http://thecolourclock.co.uk/ (by Jack Hughes)
+ * 2012-2014, Jean-Karim Bockstael <jkb@jkbockstael.be>
+ */
+
+body {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+#display {
+	position: relative;
+	font-family: monospace;
+	text-align: center;
+	margin: 0;
+	margin-left: auto;
+	margin-right: auto;
+}
