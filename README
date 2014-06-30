@@ -1,6 +1,8 @@
 Colorclock - a JavaScript partial reimplementation of http://thecolourclock.co.uk/ (by Jack Hughes)
 2012, Jean-Karim Bockstael <jkb@jkbockstael>
 
+See it live at http://files.jkbockstael.be/code/colorclock/
+
 This is a partial reimplementation of Jack Hughes' color clock, it displays the current time and interprets it as a color so you get a nice full-screen clock which is the color of the current time. Watch the color change as the day goes on, watch it pulse through each blue value each minute, drool over it, clone it, fork it, modify it and play with it.
 
 Time can be displayed in decimal or hexadecimal notations. I've choosen to have the hexadecimal display mode display the actual time instead of the associated color value, as you can already see the associated color value.
