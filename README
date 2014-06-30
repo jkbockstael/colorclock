@@ -5,6 +5,10 @@ This is a partial reimplementation of Jack Hughes' color clock, it displays the 
 
 Time can be displayed in decimal or hexadecimal notations. I've choosen to have the hexadecimal display mode display the actual time instead of the associated color value, as you can already see the associated color value.
 
+There's also a dark mode, inspired by Jacopo Colò's hex clock (http://www.jacopocolo.com/hexclock), in which instead of the full color range we use the time values as color values as is, which gives a very subtle change in an ever-dark color palette.
+
+Just click anywhere in the page to cycle through the display modes.
+
 The source code should be clear enough for anyone to understand and modify, if it's not then deal with it.
 
 Enjoy!
